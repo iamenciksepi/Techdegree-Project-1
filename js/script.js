@@ -68,11 +68,32 @@ const quotes = [
 
 function getRandomQuote () {
   // Get some random number cap by array length.
-  let randomNumber = Math.floor(Math.random() * quotes.length);
+  const randomNumber = Math.floor(Math.random() * quotes.length);
   // Convert random number as array.
-  let randomQuote = quotes[randomNumber];
-  return randomQuote;
+  return quotes[randomNumber];
 }
+
+/***
+ * `randomColors` function
+ * Generate random background colors
+ * Source: https://codepen.io/DvlprXCII/pen/ygYKMj 
+***/
+
+
+function randomColors() {
+  let colorArray = [];    
+
+  for(let i =0; i < 3 ; i++){
+    colorArray.push(Math.floor(Math.random() * (255 - 0) + 0));
+  }
+  // rgb -> hex
+  let color = colorArray
+    .map( x => x.toString(16))
+    .join('');
+
+  return `#${color}`;
+}
+
 
 
 /***
@@ -81,7 +102,7 @@ function getRandomQuote () {
 
 function printQuote () {
   // Store random quote object
-  let getQuote = getRandomQuote ();
+  const getQuote = getRandomQuote();
 
   let html = '';
 
@@ -108,7 +129,9 @@ function printQuote () {
   }
 
   // Display Quotes
-  return document.getElementById('quote-box').innerHTML = html; 
+  document.getElementById('quote-box').innerHTML = html; 
+  document.body.style.backgroundColor = randomColors();
+
 }
 
 
@@ -121,33 +144,6 @@ document.getElementById('load-quote').addEventListener("click", printQuote, fals
 
 
 /***
- * `randomColors` function
- * Generate random background colors
- * Source: https://codepen.io/DvlprXCII/pen/ygYKMj 
-***/
-
-
-function randomColors() {
-  let colorArray = [];    
-
-  for(let i =0; i < 3 ; i++){
-    colorArray.push(Math.floor(Math.random() * (255 - 0) + 0));
-  }
-  // rgb -> hex
-  let color = colorArray
-    .map( x => x.toString(16))
-    .join('');
-
-  return `#${color}`;
-}
-
-// Change background color through element ID
-
-document.getElementById('load-quote').addEventListener('click', () => {
-  document.body.style.backgroundColor = randomColors();})
-
-
-/***
  * Hit spacebar to change quote
  * Source: https://stackoverflow.com/questions/24386354/execute-js-code-after-pressing-the-spacebar/24386518 
 ***/
@@ -155,7 +151,6 @@ document.getElementById('load-quote').addEventListener('click', () => {
 document.body.onkeyup = function(e){
  if(e.keyCode == 32){ // Spacebar keyCode
      printQuote();
-     document.body.style.backgroundColor = randomColors();
  }
 }
 
@@ -166,7 +161,6 @@ document.body.onkeyup = function(e){
 
 setInterval(function(){ 
   printQuote(); 
-  document.body.style.backgroundColor = randomColors();
 }, 10000); // Equal to 10 seconds
 
 
